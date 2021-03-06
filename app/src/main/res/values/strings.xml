@@ -2,4 +2,5 @@
     <string name="app_name">PasswordManagerAPP</string>
     <string name="saved_credentials">Saved Credentials</string>
     <string name="username">Username</string>
+    <string name="saved_accounts">Saved Accounts</string>
 </resources>

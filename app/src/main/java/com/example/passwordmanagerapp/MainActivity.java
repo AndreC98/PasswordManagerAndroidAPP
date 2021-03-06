@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.io.FileInputStream;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 object = allObjects.get(position);
-                viewEdit(object);
+                editView(object);
             }
         });
     }
@@ -67,18 +68,22 @@ public class MainActivity extends AppCompatActivity {
             TextView passView = (TextView) password;
                 String pass = passView.getText().toString();
 
-        if(app.length() > 0 && usr.length() > 0 && pass.length() > 0) {
+        if(app.length() > 0 || usr.length() > 0 || pass.length() > 0) {
             allObjects = load();
             Credentials cred = new Credentials(app, usr, pass);
             allObjects.add(cred);
             save(allObjects);
+            Toast.makeText(this, "Credentials added successfully", Toast.LENGTH_LONG).show();
         }
-        this.recreate();
+        else {
+            Toast.makeText(this, "One or more fields are empty", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void goBack(View v) {
         this.recreate();
     }
+
     private ArrayList<Credentials> load(){
         allObjects.clear();
         boolean loop = true;
@@ -107,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
                 this.out.writeObject(allObjects.get(i));
             }
         } catch(Exception e) {
-            e.printStackTrace();
+            Toast.makeText(this, "Error saving", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void viewEdit(Credentials edit) {
+    private void editView(Credentials edit) {
         setContentView(R.layout.edit);
         EditText editApp = (EditText) findViewById(R.id.editApplication);
             editApp.setText(edit.getWebsite());
@@ -137,8 +142,10 @@ public class MainActivity extends AppCompatActivity {
             object.setUsername(updatedUsr);
             object.setPassword(updatedPass);
             save(allObjects);
+            Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "One or more fields are empty", Toast.LENGTH_LONG).show();
         }
-        this.recreate();
     }
 
     public void delete(View v) {

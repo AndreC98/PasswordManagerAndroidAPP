@@ -8,11 +8,11 @@
     <TextView
         android:id="@+id/Title"
         android:layout_width="0dp"
+        android:paddingTop="25dp"
         android:layout_height="wrap_content"
-        android:text="@string/saved_credentials"
+        android:text="@string/saved_accounts"
         android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="30dp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/listView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +30,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="35dp"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="35dp"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 
     <ListView
         android:id="@+id/listView"
