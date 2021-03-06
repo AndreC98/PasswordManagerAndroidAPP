@@ -153,4 +153,8 @@ public class MainActivity extends AppCompatActivity {
         save(allObjects);
         this.recreate();
     }
+
+    public void searchParameterView(View v) {
+        setContentView(R.layout.search_parameters);
+    }
 }
