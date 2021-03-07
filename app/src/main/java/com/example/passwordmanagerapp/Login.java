@@ -30,13 +30,12 @@ public class Login extends AppCompatActivity {
     }
 
     public void onStart() {
-        Context context = this;
-        try {
-            fileIn = context.openFileInput("AccountManagerPassword.ser");
-            in = new ObjectInputStream(fileIn);
-            password = (String) in.readObject();
-        } catch(IOException | ClassNotFoundException e){}
+        password = loadPassword();
         Button createButton = (Button) findViewById(R.id.createBttn);
+        Button submitButton = (Button) findViewById(R.id.loginBttn);
+        if(password == null) {
+            submitButton.setEnabled(false);
+            submitButton.setVisibility(View.INVISIBLE);
             createButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -47,14 +46,29 @@ public class Login extends AppCompatActivity {
                     }
                 }
             });
-        Button submitButton = (Button) findViewById(R.id.loginBttn);
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
+        }
+        else {
+            createButton.setEnabled(false);
+            createButton.setVisibility(View.INVISIBLE);
+            submitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    signIn();
+                }
+            });
+        }
+
         super.onStart();
+    }
+
+    public String loadPassword() {
+        Context context = this;
+        try {
+            fileIn = context.openFileInput("AccountManagerPassword.ser");//change later
+            in = new ObjectInputStream(fileIn);
+            password = (String) in.readObject();
+        } catch(IOException | ClassNotFoundException e){}
+        return password;
     }
 
     public void onResume() {

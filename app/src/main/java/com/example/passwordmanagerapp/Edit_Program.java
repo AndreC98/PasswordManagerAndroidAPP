@@ -1,6 +1,7 @@
 package com.example.passwordmanagerapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -98,7 +100,6 @@ public class Edit_Program extends AppCompatActivity {
                 if(allObjects.get(i).getUsername().equals(editedObject.getUsername()) ||
                         allObjects.get(i).getWebsite().equals(editedObject.getWebsite()) ||
                             allObjects.get(i).getPassword().equals(editedObject.getPassword())) {
-
                     allObjects.remove(i);
                     allObjects.add(i,object);
                 }
@@ -111,16 +112,24 @@ public class Edit_Program extends AppCompatActivity {
     }
 
     public void delete(View v) {
-        for(int i = 0; i < allObjects.size(); i++){
-            if(allObjects.get(i).getUsername().equals(object.getUsername()) ||
-                    allObjects.get(i).getWebsite().equals(object.getWebsite()) ||
-                    allObjects.get(i).getPassword().equals(object.getPassword())) {
+        new AlertDialog.Builder(this)
+                .setTitle("Confirm delete")
+                .setMessage("Do you really want to delete?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
-                allObjects.remove(i);
-            }
-        }
-        save(allObjects);
-        finish();
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        for(int i = 0; i < allObjects.size(); i++){
+                            if(allObjects.get(i).getUsername().equals(object.getUsername()) ||
+                                    allObjects.get(i).getWebsite().equals(object.getWebsite()) ||
+                                    allObjects.get(i).getPassword().equals(object.getPassword())) {
+                                allObjects.remove(i);
+                                finish();
+                            }
+                        }
+                        save(allObjects);
+                    }})
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
     private ArrayList<Credentials> load(){

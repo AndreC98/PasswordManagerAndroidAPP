@@ -58,7 +58,10 @@ public class Search extends AppCompatActivity {
         super.onStart();
     }
     public void onResume() {
-
+        Button searchBttn = (Button)findViewById(R.id.searchBttn);
+        if(searchBttn == null) {
+            finish();
+        }
         super.onResume();
     }
     public void searchResults(EditText searchApp, EditText searchUsr, EditText searchPass) {

@@ -53,9 +53,12 @@ public class Add_new extends AppCompatActivity {
         if(app.length() > 0 || usr.length() > 0 || pass.length() > 0) {
             allObjects = load();
             Credentials cred = new Credentials(app, usr, pass);
-            allObjects.add(cred);
-            save(allObjects);
-            Toast.makeText(this, "Credentials added successfully", Toast.LENGTH_LONG).show();
+           if(validation(cred)) {
+               allObjects.add(cred);
+               save(allObjects);
+               Toast.makeText(this, "Credentials added successfully", Toast.LENGTH_LONG).show();
+           }
+            finish();
         }
         else {
             Toast.makeText(this, "One or more fields are empty", Toast.LENGTH_LONG).show();
@@ -91,5 +94,17 @@ public class Add_new extends AppCompatActivity {
         } catch(Exception e) {
             Toast.makeText(this, "Error saving", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private Boolean validation(Credentials cred) {
+        for(int i = 0; i < allObjects.size(); i++) {
+            if(allObjects.get(i).getUsername().equals(cred.getUsername()) &&
+                    allObjects.get(i).getWebsite().equals(cred.getWebsite()) &&
+                    allObjects.get(i).getPassword().equals(cred.getPassword())) {
+                Toast.makeText(this, "Account info already saved", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        return true;
     }
 }
