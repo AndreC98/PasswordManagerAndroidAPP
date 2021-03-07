@@ -22,7 +22,6 @@ public class Add_new extends AppCompatActivity {
     private ArrayList<Credentials> allObjects = new ArrayList<>();
     private FileOutputStream fileOut;
     private ObjectOutputStream out;
-    private ObjectOutputStream buffer;
     private FileInputStream fileIn;
     private ObjectInputStream in;
     private Credentials object;
