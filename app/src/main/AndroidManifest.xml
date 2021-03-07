@@ -9,15 +9,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Add_new" android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".Edit_Program" android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".Search" android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".Add_new"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Edit_Program"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".CreatePassword"
+            android:parentActivityName=".Login" />
+        <activity android:name=".Login">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <activity
+            android:name=".Search">
+        </activity>
+        <activity
+            android:name=".MainActivity">
         </activity>
     </application>
 
