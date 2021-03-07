@@ -111,8 +111,16 @@ public class Edit_Program extends AppCompatActivity {
     }
 
     public void delete(View v) {
-        allObjects.remove(object);
+        for(int i = 0; i < allObjects.size(); i++){
+            if(allObjects.get(i).getUsername().equals(object.getUsername()) ||
+                    allObjects.get(i).getWebsite().equals(object.getWebsite()) ||
+                    allObjects.get(i).getPassword().equals(object.getPassword())) {
+
+                allObjects.remove(i);
+            }
+        }
         save(allObjects);
+        finish();
     }
 
     private ArrayList<Credentials> load(){
