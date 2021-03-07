@@ -56,9 +56,14 @@ public class Edit_Program extends AppCompatActivity {
         backBttn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                backToMain();
             }
         });
+    }
+
+    public void backToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void save(ArrayList<Credentials> allObjects) {

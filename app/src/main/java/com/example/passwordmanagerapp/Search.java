@@ -57,7 +57,10 @@ public class Search extends AppCompatActivity {
         });
         super.onStart();
     }
+    public void onResume() {
 
+        super.onResume();
+    }
     public void searchResults(EditText searchApp, EditText searchUsr, EditText searchPass) {
 
         setContentView(R.layout.search_results);
