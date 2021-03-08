@@ -84,9 +84,9 @@ public class Search extends AppCompatActivity {
                 });
                 allObjects = load();
                 for(int i = 0; i < allObjects.size(); i++) {
-                    if(allObjects.get(i).getWebsite().contains(searchApp.getText().toString()) &&
-                            allObjects.get(i).getUsername().contains(searchUsr.getText().toString()) &&
-                            allObjects.get(i).getPassword().contains(searchPass.getText().toString())) {
+                    if(allObjects.get(i).getWebsite().toLowerCase().contains(searchApp.getText().toString().toLowerCase()) &&
+                            allObjects.get(i).getUsername().toLowerCase().contains(searchUsr.getText().toString().toLowerCase()) &&
+                            allObjects.get(i).getPassword().toLowerCase().contains(searchPass.getText().toString().toLowerCase())) {
                                 searchCred.add(allObjects.get(i));
                     }
                 }
@@ -97,7 +97,7 @@ public class Search extends AppCompatActivity {
                 {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View v, int position, long l) {
-                        object = allObjects.get(position);
+                        object = searchCred.get(position);
                         openEditActivity(object);
                     }
                 });
