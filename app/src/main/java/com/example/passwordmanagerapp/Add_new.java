@@ -50,7 +50,7 @@ public class Add_new extends AppCompatActivity {
         TextView passView = (TextView) password;
         String pass = passView.getText().toString();
 
-        if(app.length() > 0 || usr.length() > 0 || pass.length() > 0) {
+        if(app.length() > 0 && usr.length() > 0 && pass.length() > 0) {
             allObjects = load();
             Credentials cred = new Credentials(app, usr, pass);
            if(validation(cred)) {

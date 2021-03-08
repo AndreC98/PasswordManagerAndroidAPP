@@ -66,7 +66,7 @@ public class Login extends AppCompatActivity {
     public String loadPassword() {
         Context context = this;
         try {
-            fileIn = context.openFileInput("sass.ser");//change later
+            fileIn = context.openFileInput("savedPassword.ser");
             in = new ObjectInputStream(fileIn);
             password = (String) in.readObject();
         } catch(IOException | ClassNotFoundException e){}
