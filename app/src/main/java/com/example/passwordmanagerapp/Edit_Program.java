@@ -104,7 +104,8 @@ public class Edit_Program extends AppCompatActivity {
             }
             save(allObjects);
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
-            finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         } else {
             Toast.makeText(this, "One or more fields are empty", Toast.LENGTH_LONG).show();
         }

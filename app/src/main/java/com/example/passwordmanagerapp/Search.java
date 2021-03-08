@@ -52,20 +52,23 @@ public class Search extends AppCompatActivity {
 
         Button searchBttn = (Button)findViewById(R.id.searchBttn);
         if(searchBttn == null) {
-            finish();
-        }
-        searchBttn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }else {
+            searchBttn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
                     searchResults(searchApplication, searchUsername, searchPassword);
-            }
-        });
+                }
+            });
+        }
         super.onStart();
     }
     public void onResume() {
         Button searchBttn = (Button)findViewById(R.id.searchBttn);
         if(searchBttn == null) {
-            finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
         super.onResume();
     }
