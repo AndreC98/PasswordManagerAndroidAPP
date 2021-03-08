@@ -49,6 +49,9 @@ public class Search extends AppCompatActivity {
         EditText searchPassword = (EditText) findViewById(R.id.searchPassword);
 
         Button searchBttn = (Button)findViewById(R.id.searchBttn);
+        if(searchBttn == null) {
+            finish();
+        }
         searchBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,9 +79,9 @@ public class Search extends AppCompatActivity {
         });
         allObjects = load();
         for(int i = 0; i < allObjects.size(); i++) {
-            if(allObjects.get(i).getWebsite().equals(searchApp.getText().toString()) ||
-                    allObjects.get(i).getUsername().equals(searchUsr.getText().toString()) ||
-                    allObjects.get(i).getPassword().equals(searchPass.getText().toString())) {
+            if(allObjects.get(i).getWebsite().contains(searchApp.getText().toString()) ||
+                    allObjects.get(i).getUsername().contains(searchUsr.getText().toString()) ||
+                    allObjects.get(i).getPassword().contains(searchPass.getText().toString())) {
                 searchCred.add(allObjects.get(i));
             }
         }

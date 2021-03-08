@@ -30,7 +30,6 @@ public class Edit_Program extends AppCompatActivity {
     private ObjectInputStream in;
     private ArrayList<Credentials> allObjects = new ArrayList<>();
     private Credentials object;
-    private Credentials editedObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,6 @@ public class Edit_Program extends AppCompatActivity {
     private void editView() {
         Intent i = getIntent();
         object = (Credentials) i.getSerializableExtra("Object");
-        editedObject = object;
         setContentView(R.layout.edit);
         EditText editApp = (EditText) findViewById(R.id.editApplication);
         editApp.setText(object.getWebsite());
@@ -93,19 +91,20 @@ public class Edit_Program extends AppCompatActivity {
         String updatedPass = passView.getText().toString();
 
         if(updatedApp.length() > 0 && updatedUsr.length() > 0 && updatedPass.length() > 0) {
-            object.setWebsite(updatedApp);
-            object.setUsername(updatedUsr);
-            object.setPassword(updatedPass);
             for (int i = 0; i < allObjects.size(); i ++) {
-                if(allObjects.get(i).getUsername().equals(editedObject.getUsername()) ||
-                        allObjects.get(i).getWebsite().equals(editedObject.getWebsite()) ||
-                            allObjects.get(i).getPassword().equals(editedObject.getPassword())) {
+                if(allObjects.get(i).getUsername().equals(object.getUsername()) &&
+                        allObjects.get(i).getWebsite().equals(object.getWebsite()) &&
+                            allObjects.get(i).getPassword().equals(object.getPassword())) {
+                    object.setWebsite(updatedApp);
+                    object.setUsername(updatedUsr);
+                    object.setPassword(updatedPass);
                     allObjects.remove(i);
                     allObjects.add(i,object);
                 }
             }
             save(allObjects);
             Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
+            finish();
         } else {
             Toast.makeText(this, "One or more fields are empty", Toast.LENGTH_LONG).show();
         }
@@ -120,8 +119,8 @@ public class Edit_Program extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         for(int i = 0; i < allObjects.size(); i++){
-                            if(allObjects.get(i).getUsername().equals(object.getUsername()) ||
-                                    allObjects.get(i).getWebsite().equals(object.getWebsite()) ||
+                            if(allObjects.get(i).getUsername().equals(object.getUsername()) &&
+                                    allObjects.get(i).getWebsite().equals(object.getWebsite()) &&
                                     allObjects.get(i).getPassword().equals(object.getPassword())) {
                                 allObjects.remove(i);
                                 finish();
