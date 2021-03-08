@@ -36,7 +36,7 @@ public class CreatePassword extends AppCompatActivity {
         if(password.length() > 0) {
             Context context = this;
             try {
-                fileOut = context.openFileOutput("AccountManagerPassword.ser", Context.MODE_PRIVATE);
+                fileOut = context.openFileOutput("sass.ser", Context.MODE_PRIVATE);
                 out = new ObjectOutputStream(fileOut);
                 out.writeObject(password);
             } catch (Exception e) {

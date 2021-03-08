@@ -49,7 +49,9 @@ public class Login extends AppCompatActivity {
         }
         else {
             createButton.setEnabled(false);
+            submitButton.setEnabled(true);
             createButton.setVisibility(View.INVISIBLE);
+            submitButton.setVisibility(View.VISIBLE);
             submitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -64,7 +66,7 @@ public class Login extends AppCompatActivity {
     public String loadPassword() {
         Context context = this;
         try {
-            fileIn = context.openFileInput("AccountManagerPassword.ser");//change later
+            fileIn = context.openFileInput("sass.ser");//change later
             in = new ObjectInputStream(fileIn);
             password = (String) in.readObject();
         } catch(IOException | ClassNotFoundException e){}
