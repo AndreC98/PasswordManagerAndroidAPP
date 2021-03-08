@@ -3,12 +3,14 @@ package com.example.passwordmanagerapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,7 +57,7 @@ public class Search extends AppCompatActivity {
         searchBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                searchResults(searchApplication,searchUsername,searchPassword);
+                    searchResults(searchApplication, searchUsername, searchPassword);
             }
         });
         super.onStart();
@@ -69,33 +71,39 @@ public class Search extends AppCompatActivity {
     }
     public void searchResults(EditText searchApp, EditText searchUsr, EditText searchPass) {
 
-        setContentView(R.layout.search_results);
-        FloatingActionButton backBttn3 = (FloatingActionButton) findViewById(R.id.backButtonSearchResults);
-        backBttn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        allObjects = load();
-        for(int i = 0; i < allObjects.size(); i++) {
-            if(allObjects.get(i).getWebsite().contains(searchApp.getText().toString()) ||
-                    allObjects.get(i).getUsername().contains(searchUsr.getText().toString()) ||
-                    allObjects.get(i).getPassword().contains(searchPass.getText().toString())) {
-                searchCred.add(allObjects.get(i));
-            }
+        if(searchApp.getText().toString().length() > 0 ||
+                searchUsr.getText().toString().length() > 0 ||
+                searchPass.getText().toString().length() > 0) {
+                setContentView(R.layout.search_results);
+                FloatingActionButton backBttn3 = (FloatingActionButton) findViewById(R.id.backButtonSearchResults);
+                backBttn3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                    }
+                });
+                allObjects = load();
+                for(int i = 0; i < allObjects.size(); i++) {
+                    if(allObjects.get(i).getWebsite().contains(searchApp.getText().toString()) &&
+                            allObjects.get(i).getUsername().contains(searchUsr.getText().toString()) &&
+                            allObjects.get(i).getPassword().contains(searchPass.getText().toString())) {
+                                searchCred.add(allObjects.get(i));
+                    }
+                }
+                searchResult = (ListView)findViewById(R.id.searchList);
+                ArrayAdapter<Credentials> adapter2 = new ArrayAdapter<Credentials>(this, android.R.layout.simple_list_item_1,searchCred);
+                searchResult.setAdapter(adapter2);
+                searchResult.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View v, int position, long l) {
+                        object = allObjects.get(position);
+                        openEditActivity(object);
+                    }
+                });
+        } else {
+            Toast.makeText(this, "One or more search fields are empty", Toast.LENGTH_LONG).show();
         }
-        searchResult = (ListView)findViewById(R.id.searchList);
-        ArrayAdapter<Credentials> adapter2 = new ArrayAdapter<Credentials>(this, android.R.layout.simple_list_item_1,searchCred);
-        searchResult.setAdapter(adapter2);
-        searchResult.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View v, int position, long l) {
-                object = allObjects.get(position);
-                openEditActivity(object);
-            }
-        });
     }
     private ArrayList<Credentials> load(){
         allObjects.clear();
